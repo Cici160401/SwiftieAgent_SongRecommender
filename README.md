@@ -54,26 +54,24 @@ uvicorn app.main:app --reload
 ## Architecture
 
 
-flowchart LR
-    subgraph User
-        A[User text<br>(mood)]
-    end
-    subgraph Encoder
-        B[SBERT<br>all-mpnet-base-v2]
-    end
-    subgraph VectorDB
-        C[Pre-computed<br>embeddings<br>(208×768)]
-    end
-    subgraph Logic
-        D[Top-k<br>(cosine)]
-        E[Threshold<br>&lt; 0.15?]
-    end
-    A -- encode --> B
-    B -- vector u --> C
-    C -- dot product --> D
-    D -->|best k| E
-    E -- yes --> F[N/A 🙅‍♀️]
-    E -- no --> G[Song title +<br>lyrics excerpt + score]
+flowchart TD
+    A([User text<br><em>“how you feel”</em>])
+    B([SBERT encoder<br><code>mpnet-base-v2</code>])
+    C((vector <code>u</code><br>1×768))
+    D([Song vectors <br>matrix <code>X</code><br>208×768])
+    E{{Top-k<br>similarities}}
+    F{{score &lt; 0.15?}}
+    G([No match 😕])
+    H([Song title<br>+ lyrics<br>+ score])
+
+    %% connections
+    A --> B
+    B --> C
+    C -- cosine dot-product --> D
+    D --> E
+    E --> F
+    F -- yes --> G
+    F -- no  --> H
 
 
 🌱 Mini Roadmap
