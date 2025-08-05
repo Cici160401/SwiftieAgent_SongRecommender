@@ -37,7 +37,7 @@
 
 ## 🚀 Quick Start (Local)
 
-```bash
+
 git clone https://github.com/<your-user>/swiftie-mood-agent.git
 cd swiftie-mood-agent
 python -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
@@ -49,12 +49,12 @@ python build_index.py
 # 2️⃣ Run the API
 uvicorn app.main:app --reload
 
-# Docs → http://127.0.0.1:8000/docs
+Docs → http://127.0.0.1:8000/docs
 
 ---
 
 ## 🚀 Architecture
-
+```bash
 
 [ user text ]              (write how you feel)
       |
@@ -75,9 +75,10 @@ top-k similarities
       |                        |
 “No match 😕”        title + lyrics + score
 
-
+---
 
 ## 🌱 Mini Roadmap
+
 
  -React front-end (cards + audio preview).
 
@@ -88,8 +89,10 @@ top-k similarities
  -Docker + GitHub Actions CI/CD pipeline.
 
 
+---
+
 ## Contributing
 Pull-requests are welcome! 
 
 
-
+---
