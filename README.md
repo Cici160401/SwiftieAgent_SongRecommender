@@ -51,42 +51,45 @@ uvicorn app.main:app --reload
 
 # Docs → http://127.0.0.1:8000/docs
 
-## Architecture
+---
+
+## 🚀 Architecture
 
 
-flowchart TD
-    A([User text<br><em>“how you feel”</em>])
-    B([SBERT encoder<br><code>mpnet-base-v2</code>])
-    C((vector <code>u</code><br>1×768))
-    D([Song vectors <br>matrix <code>X</code><br>208×768])
-    E{{Top-k<br>similarities}}
-    F{{score &lt; 0.15?}}
-    G([No match 😕])
-    H([Song title<br>+ lyrics<br>+ score])
+[ user text ]              (write how you feel)
+      |
+      v
+[ SBERT encoder ] -------->   vector u (1×768)
+      |
+      | dot-product (cosine)
+      v
+[ song vectors X ]  (208×768 preload)
+      |
+      v
+top-k similarities
+      |
+  +---+---+
+  | score < 0.15 ? |
+  +---+---+
+      | yes                    | no
+      |                        |
+“No match 😕”        title + lyrics + score
 
-    %% connections
-    A --> B
-    B --> C
-    C -- cosine dot-product --> D
-    D --> E
-    E --> F
-    F -- yes --> G
-    F -- no  --> H
 
 
-🌱 Mini Roadmap
- React front-end (cards + audio preview).
+## 🌱 Mini Roadmap
 
- Zero-shot emotion classifier to pre-filter lyrics.
+ -React front-end (cards + audio preview).
 
- Local lyrics cache (no external API calls in prod).
+ -Zero-shot emotion classifier to pre-filter lyrics.
 
- Docker + GitHub Actions CI/CD pipeline.
+ -Local lyrics cache (no external API calls in prod).
+
+ -Docker + GitHub Actions CI/CD pipeline.
 
 
 ## Contributing
-Pull-requests are welcome! Read the guidelines in CONTRIBUTING.md
-before opening an issue.
+Pull-requests are welcome! 
 
 
 
